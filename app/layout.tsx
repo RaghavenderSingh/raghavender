@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { BackgroundPattern } from "@/components/ui/background-pattern";
 import { ThemeProvider } from "@/components/theme-provider";
+import { HangingNavbar } from "@/components/ui/hanging-navbar";
 
 import "./globals.css";
 
@@ -37,6 +38,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <BackgroundPattern />
+          <HangingNavbar />
           {children}
         </ThemeProvider>
       </body>

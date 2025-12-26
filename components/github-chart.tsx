@@ -11,13 +11,10 @@ interface GithubChartProps {
 export function GithubChart({ username }: GithubChartProps) {
     const { theme } = useTheme();
     const [data, setData] = useState<any[]>([]);
-
-    // Initial data to avoid hydration mismatch or "length of undefined" errors
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(true);
-        // Using a public API to fetch GitHub contributions
         fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`)
             .then(response => response.json())
             .then(json => {

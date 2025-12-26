@@ -55,7 +55,7 @@ export function SpotifyCard() {
             target="_blank"
             className="group relative block h-full w-full overflow-hidden rounded-[32px] bg-black border border-white/10 transition-all duration-500 hover:shadow-[0_8px_40px_-12px_rgba(255,255,255,0.1)] md:aspect-square"
         >
-            {/* Background Blur (Common) */}
+          
             <div className="absolute inset-0 z-0">
                 <Image
                     src={track.albumImageUrl}
@@ -63,12 +63,12 @@ export function SpotifyCard() {
                     fill
                     className="object-cover opacity-20 blur-2xl scale-150"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black/90" />
+                <div className="absolute inset-0 bg-linear-gradient-to-b from-black/20 via-black/60 to-black/90" />
             </div>
 
-            {/* --- DESKTOP VIEW (md+) --- */}
+   
             <div className="hidden md:flex flex-col h-full items-center justify-between p-5 relative z-10">
-                {/* Header */}
+     
                 <div className="w-full flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 backdrop-blur-md border border-white/5">
                         <SiSpotify className="text-[#1DB954] text-base" />
@@ -81,7 +81,7 @@ export function SpotifyCard() {
                     </div>
                 </div>
 
-                {/* Hero Image */}
+
                 <div className="relative w-[55%] aspect-square shrink-0 rounded-xl shadow-2xl overflow-hidden border border-white/10 group-hover:scale-105 transition-transform duration-500">
                     <Image
                         src={track.albumImageUrl}
@@ -91,7 +91,7 @@ export function SpotifyCard() {
                     />
                 </div>
 
-                {/* Text Details */}
+     
                 <div className="flex flex-col items-center text-center gap-0.5 w-full mt-3">
                     <h3 className="text-lg font-bold text-white leading-tight truncate w-full">
                         {track.title}
@@ -102,9 +102,8 @@ export function SpotifyCard() {
                 </div>
             </div>
 
-            {/* --- MOBILE VIEW (Horizontal Pill) --- */}
             <div className="flex md:hidden flex-row items-center p-4 gap-4 h-full relative z-10">
-                {/* Album Art (Small) */}
+
                 <div className="relative h-16 w-16 shrink-0 rounded-xl overflow-hidden shadow-lg border border-white/10">
                     <Image
                         src={track.albumImageUrl}
@@ -114,7 +113,7 @@ export function SpotifyCard() {
                     />
                 </div>
 
-                {/* Info */}
+  
                 <div className="flex flex-col flex-1 min-w-0 justify-center">
                     <h3 className="text-base font-bold text-white leading-tight truncate">
                         {track.title}
@@ -124,7 +123,7 @@ export function SpotifyCard() {
                     </p>
                 </div>
 
-                {/* Icon/Badge */}
+    
                 <div className="flex flex-col items-end gap-2">
                     <SiSpotify className="text-[#1DB954] text-xl" />
                     <div className="flex items-end gap-[2px] h-3">
@@ -134,7 +133,7 @@ export function SpotifyCard() {
                     </div>
                 </div>
 
-                {/* Progress Bar (Bottom Overlay) */}
+           
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
                     <div className="h-full bg-[#1DB954] w-1/3 rounded-r-full" />
                 </div>

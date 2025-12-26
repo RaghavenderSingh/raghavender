@@ -8,8 +8,8 @@ import { AchievementsCard } from "@/components/achievements-card";
 
 export default function Home() {
   return (
-    <main className="min-h-screen p-4 md:p-8 max-w-5xl mx-auto space-y-4">
-      {/* Top Row: Profile + Spotify */}
+    <main className="min-h-screen p-4 pt-28 md:p-8 md:pt-25 max-w-5xl mx-auto space-y-4">
+   
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="md:col-span-3 h-full">
           <ProfileHeader />
@@ -19,12 +19,12 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Github Chart */}
+  
       <div className="w-full">
         <GithubChart username="RaghavenderSingh" />
       </div>
 
-      {/* Projects & Work Experience */}
+  
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="h-full">
           <ProjectsCard />
@@ -34,7 +34,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Skills & Achievements */}
+ 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="h-full">
           <SkillsCard />

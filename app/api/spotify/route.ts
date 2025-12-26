@@ -31,7 +31,14 @@ export async function GET() {
         // Always get AC/DC tracks for the "playlist" view
         console.log("Fetching AC/DC tracks...");
         const acdcResponse = await getArtistTopTracks(ACDC_ID);
-        let tracks = [];
+        let tracks: {
+            title: string;
+            artist: string;
+            album: string;
+            albumImageUrl: string;
+            songUrl: string;
+            duration_ms?: number;
+        }[] = [];
 
         if (acdcResponse) {
             console.log("AC/DC Response Status:", acdcResponse.status);
