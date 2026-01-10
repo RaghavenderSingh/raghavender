@@ -27,26 +27,32 @@ export function WorkExperienceCard() {
     ];
 
     return (
-        <div className="border border-edge rounded-xl bg-card p-6 h-full">
-            <h2 className="text-xl font-semibold mb-6">Work Experience</h2>
+        <div className="glass rounded-2xl p-6 h-full relative overflow-hidden group">
+            <h2 className="text-xl font-bold mb-8 tracking-tight text-foreground">Work Experience</h2>
 
-            <div className="space-y-8">
+            <div className="relative space-y-8 before:absolute before:inset-0 before:ml-1 before:-translate-x-px before:h-full before:w-0.5 before:bg-linear-to-b before:from-primary/20 before:via-primary/10 before:to-transparent">
                 {experiences.map((exp, i) => (
-                    <div key={i} className="group relative border-l-2 border-edge pl-4 pb-2 last:pb-0">
-                        <div className="absolute -left-[5px] top-1.5 size-2 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1">
-                            <h3 className="font-medium">{exp.role}</h3>
-                            <span className="text-xs text-zinc-400 font-mono bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded w-fit">
+                    <div key={i} className="relative pl-8 group/item">
+                        <div className="absolute left-0 top-1.5 size-2.5 rounded-full border-2 border-primary/20 bg-background group-hover/item:border-primary group-hover/item:scale-110 transition-all duration-300" />
+                        
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                            <h3 className="font-bold text-foreground/90 group-hover/item:text-foreground transition-colors tracking-tight">
+                                {exp.role}
+                            </h3>
+                            <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest glass px-2 py-1 rounded-lg border border-white/5 whitespace-nowrap">
                                 {exp.period}
                             </span>
                         </div>
-                        <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">{exp.company}</p>
-                        <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                        
+                        <p className="text-sm font-semibold text-primary/80 mb-3 tracking-wide">{exp.company}</p>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
                             {exp.description}
                         </p>
                     </div>
                 ))}
             </div>
+            
+            <div className="absolute -top-12 -left-12 size-24 bg-primary/5 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         </div>
     );
 }

@@ -85,7 +85,7 @@ and ensured reliability for 10K+ daily active users.
 
 ## Projects
 
-### Vercel Clone — Cloud Deployment Platform
+### Titan — Cloud Deployment Platform
 • Built a Vercel-like CI/CD platform supporting Next.js, Vite, and React apps.
 • Designed distributed architecture with API server, build workers, and Redis-backed job queues supporting 20+
 concurrent builds.

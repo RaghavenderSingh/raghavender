@@ -20,27 +20,32 @@ export function AchievementsCard() {
     ];
 
     return (
-        <div className="border border-edge rounded-xl bg-card p-6 h-full">
-            <h2 className="text-xl font-semibold mb-6">Achievements</h2>
-            <div className="space-y-4">
+        <div className="glass rounded-2xl p-6 h-full flex flex-col relative overflow-hidden group">
+            <h2 className="text-xl font-bold mb-8 tracking-tight text-foreground">Achievements</h2>
+            <div className="space-y-4 flex-1">
                 {achievements.map((achievement, i) => (
                     <a
                         key={i}
                         href={achievement.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block p-4 rounded-lg bg-zinc-50 dark:bg-zinc-900/50 border border-transparent hover:border-edge transition-colors"
+                        className="group/item block p-4 rounded-xl border border-white/5 hover:bg-white/5 transition-all duration-300 relative overflow-hidden"
                     >
-                        <div className="flex items-center gap-2 mb-2">
-                            <GitMerge className="size-4 text-purple-500" />
-                            <h3 className="font-medium">{achievement.title}</h3>
+                        <div className="flex items-center gap-3 mb-2">
+                            <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover/item:scale-110 transition-transform">
+                                <GitMerge className="size-4" />
+                            </div>
+                            <h3 className="font-bold text-foreground/80 group-hover/item:text-foreground transition-colors tracking-tight">
+                                {achievement.title}
+                            </h3>
                         </div>
-                        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
                             {achievement.description}
                         </p>
                     </a>
                 ))}
             </div>
+            <div className="absolute -top-12 -right-12 size-24 bg-primary/5 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         </div>
     );
 }

@@ -8,40 +8,28 @@ import { AchievementsCard } from "@/components/achievements-card";
 
 export default function Home() {
   return (
-    <main className="min-h-screen p-4 pt-28 md:p-8 md:pt-25 max-w-5xl mx-auto space-y-4">
-   
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="md:col-span-3 h-full">
+    <main className="min-h-screen p-4 pt-32 md:p-8 md:pt-36 max-w-6xl mx-auto space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
+        <div className="md:col-span-3">
           <ProfileHeader />
         </div>
-        <div className="md:col-span-1 h-full">
+        <div className="md:col-span-1">
           <SpotifyCard />
         </div>
       </div>
 
-  
       <div className="w-full">
         <GithubChart username="RaghavenderSingh" />
       </div>
 
-  
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="h-full">
-          <ProjectsCard />
-        </div>
-        <div className="h-full">
-          <WorkExperienceCard />
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <ProjectsCard />
+        <WorkExperienceCard />
       </div>
 
- 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="h-full">
-          <SkillsCard />
-        </div>
-        <div className="h-full">
-          <AchievementsCard />
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <SkillsCard />
+        <AchievementsCard />
       </div>
     </main>
   );

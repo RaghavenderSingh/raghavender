@@ -1,5 +1,5 @@
 
-import { getNowPlaying, getArtistTopTracks } from '@/lib/spotify';
+import { getNowPlaying, getArtistTopTracks, searchTracks } from '@/lib/spotify';
 import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
@@ -18,25 +18,28 @@ export async function GET() {
             const song = await response.json();
             if (song.item && song.is_playing) {
                 isPlaying = true;
-                nowPlayingData = {
-                    title: song.item.name,
-                    artist: song.item.artists.map((_artist: any) => _artist.name).join(', '),
-                    album: song.item.album.name,
-                    albumImageUrl: song.item.album.images[0].url,
-                    songUrl: song.item.external_urls.spotify,
-                };
+                    nowPlayingData = {
+                        title: song.item.name,
+                        artist: song.item.artists.map((_artist: any) => _artist.name).join(', '),
+                        album: song.item.album.name,
+                        albumImageUrl: song.item.album.images[0].url,
+                        songUrl: song.item.external_urls.spotify,
+                        previewUrl: song.item.preview_url,
+                        youtubeId: "l482T0yNkeo", // Fallback for AC/DC Highway to Hell
+                    };
             }
         }
 
-        // Always get AC/DC tracks for the "playlist" view
-        console.log("Fetching AC/DC tracks...");
-        const acdcResponse = await getArtistTopTracks(ACDC_ID);
+        // Always search for "Highway to Hell"
+        const acdcResponse = await searchTracks("Highway to Hell AC/DC");
         let tracks: {
             title: string;
             artist: string;
             album: string;
             albumImageUrl: string;
             songUrl: string;
+            previewUrl?: string;
+            youtubeId?: string;
             duration_ms?: number;
         }[] = [];
 
@@ -44,10 +47,14 @@ export async function GET() {
             console.log("AC/DC Response Status:", acdcResponse.status);
             if (acdcResponse.status === 200) {
                 const data = await acdcResponse.json();
-                if (data.tracks) {
+                const trackList = data.tracks.items || data.tracks || [];
+                
+                console.log("Found tracks:", trackList.map((t: any) => ({ name: t.name, preview: t.preview_url })));
+                
+                if (trackList.length > 0) {
                     // Try to find "Highway to Hell" specifically
-                    const highwayToHell = data.tracks.find((t: any) => t.name.toLowerCase().includes("highway to hell"));
-                    const targetTrack = highwayToHell || data.tracks[0]; // Fallback to top track
+                    const highwayToHell = trackList.find((t: any) => t.name.toLowerCase().includes("highway to hell"));
+                    const targetTrack = highwayToHell || trackList[0]; // Fallback to top track
 
                     if (targetTrack) {
                         tracks = [{
@@ -56,6 +63,8 @@ export async function GET() {
                             album: targetTrack.album.name,
                             albumImageUrl: targetTrack.album.images[0].url,
                             songUrl: targetTrack.external_urls.spotify,
+                            previewUrl: targetTrack.preview_url,
+                            youtubeId: "l482T0yNkeo", // Fallback for AC/DC Highway to Hell
                             duration_ms: targetTrack.duration_ms // Add duration
                         }];
                     }

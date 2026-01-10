@@ -4,6 +4,7 @@ import { USER } from "@/features/portfolio/data/user";
 export function ResumeSection() {
     return (
         <div className="max-w-3xl mx-auto space-y-12 py-12">
+            {/* Header / Summary */}
             <section className="space-y-4">
                 <h1 className="text-4xl font-bold">{USER.displayName}</h1>
                 <p className="text-xl text-muted-foreground">{USER.jobTitle}</p>
