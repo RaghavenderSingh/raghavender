@@ -204,35 +204,104 @@ Security-wise, I also learned that 'privileged' mode is a massive hole. Finding 
   {
     slug: "coinwala",
     title: "CoinWala",
-    isComingSoon: true,
-    description: "Self-custodial Solana wallet using MPC-based key management and OAuth login.",
+    description: "Self-custodial Solana wallet platform with Link-based, Google-auth (MPC), and Standard Adapter paradigms.",
     longDescription:
-      "CoinWala is a user-friendly, self-custodial wallet for the Solana blockchain. It leverages Multi-Party Computation (MPC) for secure key management, allowing users to sign in with familiar OAuth providers (Google, Twitter) while maintaining full control over their assets without managing complex seed phrases.",
-    link: "#",
-    github: "#",
+      "CoinWala is a comprehensive Solana wallet platform built with Next.js 14, offering a unique 'bearer instrument' link wallet system. Private keys are derived on-demand from URL hashes using Libsodium's Argon2 KDF, ensuring keys never touch the server. It also features a Google-auth embedded wallet using Web3Auth Single Factor Auth for deterministic MPC key reconstruction, and full support for the standard Solana Wallet Adapter interface.",
+    link: "https://coinwala.curiousdev.xyz/",
+    github: "https://github.com/itsrsc_/coinwala",
+    demoVideo: "/wallet.mov",
     features: [
-      "MPC-based Key Management",
-      "OAuth Social Login",
-      "Self-Custodial",
-      "Solana Blockchain Support",
+      "Link-based Wallets (URL hash derived keys)",
+      "Google Social Login (MPC/Web3Auth)",
+      "Jupiter Aggregator v6 Swap Integration",
+      "Real-time Balance & Price Tracking (WebSockets)",
+      "Link-based P2P Transfers via Ephemeral Keys",
+      "Support for Versioned (v0) & Legacy Transactions",
     ],
-    techStack: ["Solana Web3.js", "Next.js", "TSS-Lib", "Firebase Auth"],
+    keyHighlights: [
+      "Awarded $4,000 Superteam grant for Web3 infrastructure",
+      "Reduced wallet onboarding time from 10+ minutes to <30 seconds",
+      "Zero-server-access security model for Link-based wallets",
+      "Seamless dApp integration via embedded wallet iframe",
+    ],
+    techStack: ["Next.js 14", "TypeScript", "Solana Web3.js", "Libsodium (Argon2)", "Web3Auth", "Jupiter v6", "CoinGecko"],
+    architecture: {
+      microservices: [
+        {
+          title: "Link System",
+          tech: "Libsodium + Argon2 + TypeScript",
+          responsibilities: [
+            "Deterministic key derivation from URL hash fragments",
+            "100% client-side key reconstruction (Zero-Knowledge)",
+            "Ephemeral key generation for secure P2P transfers",
+          ]
+        },
+        {
+          title: "Embedded Wallet",
+          tech: "Web3Auth + NextAuth + MPC",
+          responsibilities: [
+            "Google idToken verifier via Web3Auth SFA",
+            "Deterministic MPC key reconstruction across sessions",
+            "Secure postMessage-based iframe communication",
+          ]
+        },
+        {
+          title: "Swap Engine",
+          tech: "Jupiter v6 SDK + Web3.js",
+          responsibilities: [
+            "Real-time quote fetching from Jupiter aggregator",
+            "VersionedTransaction (v0) construction and signing",
+            "Mainnet/Devnet token mapping and price fallbacks",
+          ]
+        }
+      ],
+      dataFlow: {
+        deployment: [
+          { step: 1, description: "User generates or reconstructs wallet from URL hash fragment." },
+          { step: 2, description: "Frontend derives seed via Argon2 KDF (crypto_pwhash) client-side." },
+          { step: 3, description: "Wallet state initialized with Solana RPC and WebSocket connections." },
+          { step: 4, description: "Transaction signed locally and broadcast to Solana devnet/mainnet." },
+        ],
+        errorHandling: [
+          { step: 1, description: "Origin whitelist check for iframe-based wallet requests." },
+          { step: 2, description: "Graceful fallback for CoinGecko rate limits (429 handling)." },
+          { step: 3, description: "Transaction simulation before signing to prevent fund loss." },
+        ]
+      },
+      infrastructure: [
+        { category: "Frontend", items: ["Next.js 14 (App Router)", "Tailwind CSS", "Shadcn UI"] },
+        { category: "Auth & Security", items: ["Web3Auth (MPC)", "Libsodium (Argon2)", "NextAuth.js"] },
+        { category: "Blockchain", items: ["Solana Web3.js", "Jupiter v6", "Solana Wallet Adapter"] },
+      ],
+      security: [
+        "Private keys never touch the server (Link wallets)",
+        "MPC key reconstruction via Web3Auth nodes",
+        "Strict CORS and postMessage origin whitelisting",
+        "Encrypted off-chain metadata for P2P links",
+      ],
+      performance: [
+        "Sub-30s onboarding via social OAuth login",
+        "Sub-second state updates via Solana WebSockets",
+        "Optimized Argon2 KDF parameters for browser performance",
+      ]
+    }
   },
   {
     slug: "coinwala-wallet-adapter",
     title: "CoinWala Wallet Adapter SDK",
-    isComingSoon: true,
-    description: "A Solana wallet adapter that seamlessly integrates CoinWala Wallet functionality into Solana dApps.",
+    description: "A standard Solana wallet adapter that seamlessly integrates CoinWala Wallet functionality into Solana dApps.",
     longDescription:
-      "The CoinWala Wallet Adapter SDK enables Solana developers to easily integrate CoinWala wallet support into their decentralized applications (dApps). It adheres to the standard Solana Wallet Adapter interface, ensuring compatibility with the broader Solana ecosystem.",
-    link: "#",
-    github: "#",
+      "The CoinWala Wallet Adapter SDK provides a production-ready interface for Solana developers to support CoinWala's embedded wallet. It follows the official Solana Wallet Adapter interface, supporting Versioned Transactions (v0), message signing, and real-time state synchronization via WebSockets.",
+    link: "https://www.npmjs.com/package/@coinwala/wallet-adapter",
+    github: "https://github.com/itsrsc_/coinwala-adapter",
+    demoVideo: "/walletextension.mp4",
     features: [
-      "Standard Wallet Adapter Interface",
-      "Easy Integration",
-      "Support for Signing Transactions & Messages",
+      "Standard Solana Wallet Adapter Compatibility",
+      "Support for Versioned (v0) & Legacy Transactions",
+      "Real-time WebSocket State Synchronization",
+      "Secure Iframe-based Authentication Flow",
     ],
-    techStack: ["TypeScript", "Solana Wallet Adapter Base", "Web3.js"],
+    techStack: ["TypeScript", "Solana Wallet Adapter Base", "Web3.js", "WebSockets"],
   },
   {
     slug: "bridge-vault",

@@ -8,6 +8,8 @@ import { useState, use } from "react";
 import { ArrowLeft, ExternalLink, Github, Server, Workflow, ShieldCheck, Zap, Database, Cpu, Cloud, Settings, Layers, PlayCircle, BookOpen, Clock, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TitanArchitecture } from "@/components/titan-architecture";
+import { CoinWalaArchitecture } from "@/components/coinwala-architecture";
+import { GenericArchitecture } from "@/components/generic-architecture";
 
 interface ProjectPageProps {
   params: Promise<{
@@ -105,12 +107,23 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             {/* Product Demo Video */}
             <div className="aspect-video relative rounded-3xl overflow-hidden border border-border bg-black shadow-xl">
               {project.demoVideo ? (
-                  <iframe
-                      src={`${project.demoVideo}${project.demoVideo.includes('?') ? '&' : '?'}autoplay=1&mute=1&loop=1&playlist=${project.demoVideo.split('/').pop()?.split('?')[0]}`}
-                      className="w-full h-full border-0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                  />
+                  project.demoVideo.startsWith('http') || project.demoVideo.includes('youtube') ? (
+                    <iframe
+                        src={`${project.demoVideo}${project.demoVideo.includes('?') ? '&' : '?'}autoplay=1&mute=1&loop=1&playlist=${project.demoVideo.split('/').pop()?.split('?')[0]}`}
+                        className="w-full h-full border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    />
+                  ) : (
+                    <video 
+                        src={project.demoVideo}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="w-full h-full object-cover"
+                    />
+                  )
               ) : (
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground gap-4">
                       <PlayCircle className="size-16 opacity-10" />
@@ -123,9 +136,11 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             </div>
 
             {/* Architecture Diagram */}
-            <div className={`flex-1 min-h-[400px] relative rounded-3xl overflow-hidden group ${project.slug === 'titan' ? '' : 'border border-border bg-zinc-50 dark:bg-zinc-950 shadow-inner'}`}>
+            <div className={`flex-1 min-h-[400px] relative rounded-3xl overflow-hidden group ${['titan', 'coinwala'].includes(project.slug) ? '' : 'border border-border bg-zinc-50 dark:bg-zinc-950 shadow-inner'}`}>
                {project.slug === 'titan' ? (
                    <TitanArchitecture />
+               ) : project.slug === 'coinwala' ? (
+                   <CoinWalaArchitecture />
                ) : project.architectureDiagram ? (
                    <div className="relative w-full h-full p-8 flex items-center justify-center">
                        <div className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold backdrop-blur-md border border-primary/20 uppercase tracking-widest">
@@ -139,10 +154,11 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                        />
                    </div>
                ) : (
-                   <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground gap-4">
-                       <Layers className="size-16 opacity-10" />
-                       <p className="text-sm font-medium">Architecture Overview</p>
-                   </div>
+                   <GenericArchitecture 
+                       microservices={project.architecture?.microservices}
+                       dataFlow={project.architecture?.dataFlow}
+                       title={project.title}
+                   />
                )}
             </div>
           </div>
